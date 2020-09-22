@@ -1,5 +1,6 @@
 #include "ofApp.h"
 
+ofApp::ofApp(std::string host, int port, std::string topic) : _host(host), _port(port), _topic(topic) {}
 void ofApp::setup(){
     _midiIn.addListener(this);
     _midiIn.openVirtualPort("ofMIDI2MQTT");
@@ -11,7 +12,7 @@ void ofApp::setup(){
     }
 
 
-    _mqtt.begin("broker.shiftr.io", 1883);
+    _mqtt.begin(_host, _port);
     _mqtt.connect("openframeworks", "try", "try");
 
     ofAddListener(_mqtt.onOnline, this, &ofApp::onOnline);
@@ -35,8 +36,13 @@ void ofApp::gotMessage(ofMessage msg){}
 void ofApp::dragEvent(ofDragInfo dragInfo){}
 
 void ofApp::newMidiMessage(ofxMidiMessage & message){
-    ofLogNotice() << "new midi message";
-    // TODO: send mqtt message
+    ofJson payload;
+    payload["channel"] = message.channel;
+    payload["note"] = message.pitch;
+    payload["velocity"] = message.velocity;
+    payload["status"] = message.status;
+   _mqtt.publish(_topic, payload.dump());
+    ofLogNotice() << _topic << " " << payload.dump();
 }
 void ofApp::onOnline(){}
 void ofApp::onOffline(){}

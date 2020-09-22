@@ -6,6 +6,7 @@
 
 class ofApp : public ofBaseApp, ofxMidiListener{
 	public:
+        ofApp(std::string host, int port, std::string topic);
 		void setup();
 		void update();
 		void draw();
@@ -31,4 +32,8 @@ class ofApp : public ofBaseApp, ofxMidiListener{
         ofxMQTT _mqtt;
         ofxMidiIn _midiIn;
         ofxMidiIn _iac;
+
+        std::string _host;
+        int _port;
+        std::string _topic;
 };
