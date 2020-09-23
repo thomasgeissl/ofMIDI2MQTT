@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
-ofApp::ofApp(std::string host, int port, std::string topic) : _host(host), _port(port), _topic(topic) {}
+ofApp::ofApp(std::string host, int port, std::string topic, std::string username, std::string password) : 
+    _host(host), _port(port), _topic(topic), _username(username), _password(password) {}
 void ofApp::setup(){
     _midiIn.addListener(this);
     _midiIn.openVirtualPort("ofMIDI2MQTT");
@@ -13,7 +14,7 @@ void ofApp::setup(){
 
 
     _mqtt.begin(_host, _port);
-    _mqtt.connect("openframeworks", "try", "try");
+    _mqtt.connect("openframeworks", _username, _password);
 
     ofAddListener(_mqtt.onOnline, this, &ofApp::onOnline);
     ofAddListener(_mqtt.onOffline, this, &ofApp::onOffline);

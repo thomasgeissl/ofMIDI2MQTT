@@ -6,7 +6,7 @@
 
 class ofApp : public ofBaseApp, ofxMidiListener{
 	public:
-        ofApp(std::string host, int port, std::string topic);
+        ofApp(std::string host, int port, std::string topic, std::string username = "", std::string password = "");
 		void setup();
 		void update();
 		void draw();
@@ -36,4 +36,6 @@ class ofApp : public ofBaseApp, ofxMidiListener{
         std::string _host;
         int _port;
         std::string _topic;
+        std::string _username;
+        std::string _password;
 };
