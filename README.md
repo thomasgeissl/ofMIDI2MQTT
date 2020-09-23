@@ -5,9 +5,16 @@
 
 ## Description
 
+## Installation
+### osx
+```
+brew tap thomasgeissl/tools
+brew install ofmidi2mqtt
+# brew upgrade ofmidi2mqtt
+```
 
 
 ```
-./bin/ofMIDI2MQTT.app/Contents/MacOS/ofMIDI2MQTT -h broker.shiftr.io -p 1883 -t vgig/midi -u try -r try
+ofMIDI2MQTT -h broker.shiftr.io -p 1883 -t vgig/midi -u try -r try
 
 ```
