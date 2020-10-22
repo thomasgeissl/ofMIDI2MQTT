@@ -3,6 +3,7 @@
 ofApp::ofApp(std::string host, int port, std::string topic, std::string username, std::string password) : 
     _host(host), _port(port), _topic(topic), _username(username), _password(password) {}
 void ofApp::setup(){
+    ofSetFrameRate(60);
     _midiIn.addListener(this);
     _midiIn.ignoreTypes(true, true, true);
     _midiIn.openVirtualPort("ofMIDI2MQTT");
