@@ -38,9 +38,16 @@ void ofApp::update(){
 void ofApp::newMidiMessage(ofxMidiMessage & message){
     ofJson payload;
     payload["channel"] = message.channel;
+    payload["status"] = message.status;
+    payload["deltaTime"] = message.deltatime;
+    // TODO: should bytes be always sent or just for sysex
+    payload["bytes"] = message.bytes;
+    // TODO: if noteon, notoff
     payload["note"] = message.pitch;
     payload["velocity"] = message.velocity;
-    payload["status"] = message.status;
+    // TODO: if cc, pc
+    payload["control"] = message.control;
+    payload["value"] = message.value;
     _messages.push_back(payload.dump());
 }
 void ofApp::onOnline(){}
